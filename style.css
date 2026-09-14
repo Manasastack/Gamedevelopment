@@ -1,0 +1,238 @@
+/* ==========================================================================
+   THEME TOKENS
+   Change this block to reskin the whole game for a new competition theme.
+   Player and obstacles are drawn on the canvas by reading these same
+   variables (see utils.js -> getCSSVar), so a palette swap here recolors
+   the gameplay too, not just the UI chrome.
+   ========================================================================== */
+:root {
+  --bg-deep: #15121c;
+  --bg-panel: #1f1a2b;
+  --screen-bg: #0b0912;
+  --accent: #ffc24b;
+  --accent-soft: #ffd97d;
+  --danger: #ff5c5c;
+  --text-primary: #f3eee3;
+  --text-muted: #948da6;
+  --panel-border: #35304a;
+
+  --font-display: "Archivo Black", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.cabinet {
+  width: 100%;
+  max-width: 680px;
+  background: var(--bg-panel);
+  border: 3px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 18px;
+}
+
+.marquee {
+  text-align: center;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid var(--panel-border);
+}
+
+.marquee-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 40px);
+  color: var(--accent);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.marquee-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.screen {
+  position: relative;
+  background: var(--screen-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: 3px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: linear-gradient(to bottom, rgba(11, 9, 18, 0.85), transparent);
+  pointer-events: none;
+  font-family: var(--font-mono);
+}
+
+.hud-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hud-block--center {
+  align-items: center;
+}
+
+.hud-block--right {
+  align-items: flex-end;
+}
+
+.hud-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.hud-value {
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+#healthValue {
+  color: var(--danger);
+  letter-spacing: 2px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px;
+  background: rgba(11, 9, 18, 0.88);
+}
+
+.overlay--hidden {
+  display: none;
+}
+
+.overlay h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  margin: 0;
+  color: var(--accent-soft);
+}
+
+.overlay p {
+  max-width: 40ch;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+kbd {
+  font-family: var(--font-mono);
+  background: var(--bg-panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  color: var(--text-primary);
+}
+
+.final-stats {
+  color: var(--text-primary) !important;
+  font-size: 15px;
+}
+
+.best-stats {
+  font-size: 13px;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 10px 22px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #1a1420;
+}
+
+.btn--primary:hover {
+  background: var(--accent-soft);
+}
+
+.btn--primary:active {
+  transform: scale(0.97);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--panel-border);
+  color: var(--text-muted);
+}
+
+.btn--ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.controls-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .cabinet {
+    padding: 12px;
+  }
+  .btn {
+    padding: 9px 16px;
+    font-size: 13px;
+  }
+}

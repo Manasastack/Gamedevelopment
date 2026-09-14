@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DODGE — Prompt Arcade Base Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="cabinet">
+    <header class="marquee">
+      <h1 class="marquee-title" id="gameTitle">DODGE</h1>
+      <div class="marquee-sub">a Prompt Arcade base game — reskin me</div>
+    </header>
+
+    <div class="screen">
+      <canvas id="gameCanvas"></canvas>
+
+      <!-- HUD: kept as plain DOM elements over the canvas so it's easy to restyle -->
+      <div class="hud" id="hud">
+        <div class="hud-block">
+          <span class="hud-label">Score</span>
+          <span class="hud-value" id="scoreValue">0</span>
+        </div>
+        <div class="hud-block hud-block--center">
+          <span class="hud-label">Time</span>
+          <span class="hud-value" id="timeValue">0:00</span>
+        </div>
+        <div class="hud-block hud-block--right">
+          <span class="hud-label">Health</span>
+          <span class="hud-value" id="healthValue">♥ ♥ ♥</span>
+        </div>
+      </div>
+
+      <!-- Overlays: only one is ever visible at a time; ui.js controls that -->
+      <section class="overlay" id="startOverlay">
+        <h2>Ready?</h2>
+        <p>Move with <kbd>WASD</kbd> or arrow keys. Dodge the falling blocks — three hits and it's over.</p>
+        <button class="btn btn--primary" id="startBtn">Start Game</button>
+      </section>
+
+      <section class="overlay overlay--hidden" id="pauseOverlay">
+        <h2>Paused</h2>
+        <button class="btn btn--primary" id="resumeBtn">Resume</button>
+      </section>
+
+      <section class="overlay overlay--hidden" id="gameOverOverlay">
+        <h2>Game Over</h2>
+        <p class="final-stats">Survived <span id="finalTime">0:00</span> — Score <span id="finalScore">0</span></p>
+        <p class="best-stats" id="bestStats"></p>
+        <button class="btn btn--primary" id="restartBtn">Play Again</button>
+      </section>
+    </div>
+
+    <footer class="controls-bar">
+      <button class="btn btn--ghost" id="pauseBtn">Pause</button>
+      <button class="btn btn--ghost" id="soundBtn">Sound: On</button>
+    </footer>
+  </main>
+
+  <!-- Plain scripts (no type="module") on purpose: this needs to run when the
+       file is just double-clicked open, and module scripts are blocked by CORS
+       under file:// in most browsers. Order matters — each file depends on the
+       ones above it being loaded already. -->
+  <script src="utils.js"></script>
+  <script src="sound.js"></script>
+  <script src="player.js"></script>
+  <script src="obstacles.js"></script>
+  <script src="score.js"></script>
+  <script src="ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
